@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Construindo a Cidade Virtual da EEPAG</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header id="hud" hidden>
+  <div>⏱ <b id="time">3:00</b><div class="bar"><i id="bar"></i></div></div>
+  <div>Saldo <b id="hud-budget"></b></div>
+  <div>Custo <b id="hud-cost">R$ 0</b></div>
+  <div>👥 <b id="hud-pop">0</b></div>
+</header>
+
+<main>
+<section id="welcome" class="screen active">
+  <svg class="logo" viewBox="0 0 60 60" aria-hidden="true"><polygon points="30,6 54,20 30,34 6,20" fill="#ffd45e"/><polygon points="6,20 30,34 30,56 6,42" fill="#e8744f"/><polygon points="54,20 30,34 30,56 54,42" fill="#b9523a"/></svg>
+  <h1 id="game-name">Construindo a Cidade Virtual da EEPAG</h1>
+  <div id="hero" class="hero"></div>
+  <p id="welcome-stats" class="popbar" aria-live="polite"></p>
+  <p id="story" class="story"></p>
+  <div class="row-btns"><button id="btn-start" class="primary">Começar a construir</button><button id="btn-see-city">Conheça a cidade</button></div>
+  <button id="btn-admin" class="admin" hidden>Reiniciar cidade (admin)</button>
+</section>
+
+<section id="setup" class="screen">
+  <h2>Preparação</h2>
+  <p class="card">Orçamento: <b id="s-budget"></b> · Tempo: <b id="s-time"></b><span id="s-dev" class="muted"></span></p>
+  <p>Use as medidas em metros, calcule áreas e volumes e fique dentro do orçamento!</p>
+
+  <fieldset id="bonus-box" class="card bonus" hidden>
+    <legend>🎯 Desafio para ganhar bônus</legend>
+    <p>Quer mais orçamento? Faça um desafio presencial com a equipe e ganhe <b id="bonus-val"></b> a mais. É opcional e acontece antes de o tempo começar.</p>
+    <button id="btn-bonus-try">Quero tentar o desafio</button>
+    <div id="bonus-confirm" hidden>
+      <p><b>Fale com um monitor.</b> Depois do desafio, a equipe confirma aqui o resultado.</p>
+      <label class="pin">PIN do monitor <input id="bonus-pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12"></label>
+      <div class="row-btns">
+        <button id="btn-bonus-ok" class="primary">✅ Aprovado</button>
+        <button id="btn-bonus-no">Não aprovado</button>
+        <button id="btn-bonus-cancel">Seguir sem desafio</button>
+      </div>
+    </div>
+    <p id="bonus-msg" class="bonus-msg" aria-live="polite"></p>
+    <div id="bonus-result" class="bonus-result" hidden></div>
+  </fieldset>
+
+  <fieldset><legend>Participação</legend>
+    <label><input type="radio" name="mode" value="solo" checked> Individual</label>
+    <label><input type="radio" name="mode" value="duo"> Em dupla (1 constrói, 2 calcula)</label>
+  </fieldset>
+  <fieldset><legend>O que você vai construir?</legend>
+    <div id="type-list"></div>
+  </fieldset>
+  <p class="muted">O tempo começa ao escolher a construção.</p>
+</section>
+
+<section id="editor" class="screen">
+  <p id="role" class="role"></p>
+  <div class="split">
+    <div id="preview" class="preview"></div>
+    <div class="panel">
+      <label>Formato <select id="shape"></select></label>
+      <label>Material <select id="material"></select></label>
+      <div class="dim" data-dim="comprimento"><span id="l-comprimento"></span> <output></output> m<input type="range"></div>
+      <div class="dim" data-dim="largura"><span id="l-largura"></span> <output></output> m<input type="range"></div>
+      <div class="dim" data-dim="altura"><span id="l-altura"></span> <output></output> m<input type="range"></div>
+      <div class="dim" data-dim="telhado"><span id="l-telhado"></span> <output></output> m<input type="range"></div>
+      <div class="dim" data-dim="raio"><span id="l-raio"></span> <output></output> m<input type="range"></div>
+      <div class="dim" data-dim="baseMenor"><span id="l-baseMenor"></span> <output></output> m<input type="range"></div>
+      <div class="card help"><b>📘 Fórmulas que você vai usar:</b><ul id="formulas"></ul></div>
+      <p id="pop-preview" class="muted"></p>
+      <p id="warn" class="warn"></p>
+      <button id="btn-confirm" class="primary">Confirmar projeto</button>
+    </div>
+  </div>
+</section>
+
+<section id="challenge" class="screen">
+  <h2>Desafio matemático</h2>
+  <p id="c-role" class="role"></p>
+  <div id="c-list"></div>
+  <button id="btn-finish" class="primary">Concluir construção</button>
+</section>
+
+<section id="results" class="screen">
+  <h2>Construção concluída! 🎉</h2>
+  <div id="r-body" class="card"></div>
+  <p id="r-msg" class="story"></p>
+  <button id="btn-r-city" class="primary">Ver a cidade</button>
+</section>
+
+<section id="city" class="screen">
+  <h2 id="city-title"></h2>
+  <p id="city-info" class="muted"></p>
+  <div id="city-stats" class="stats" aria-live="polite"></div>
+  <div id="city-map" class="citymap"></div>
+  <div class="row-btns"><button id="btn-new" class="primary">Nova participação</button><button id="btn-home">Início</button></div>
+</section>
+</main>
+<div id="toast" role="status"></div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
